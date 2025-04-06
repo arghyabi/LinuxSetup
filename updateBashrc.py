@@ -55,20 +55,8 @@ def main():
     # move the old .bashrc file to .bashrc_old
     os.rename(bashrcPath, bashrcPath+"_old")
     writeFileContent(bashrcPath, newBashrcContent)
-
-
-def runBashrc():
-    """
-    create a new bash session to run the .bashrc file
-    """
-    newScript = [
-        "#!/bin/bash\n\n",
-        "source ~/.bashrc\n",
-        "exec bash\n"
-    ]
-    writeFileContent("runBashrc.sh", newScript)
-
+    
 
 if __name__ == "__main__":
     main()
-    runBashrc()
+

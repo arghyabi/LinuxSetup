@@ -1,5 +1,7 @@
+#!/bin/bash
+
 chmod +x update
-sudo mv update /usr/bin
+sudo cp update /usr/bin
 
 update
 
@@ -7,6 +9,6 @@ sudo apt-get install python-is-python3 -y
 
 python updateBashrc.py
 
-source runBashrc.sh
+source .~/.bashrc
 
 cd ../ && rm -rf LinuxSetup
