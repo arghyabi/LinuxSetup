@@ -30,7 +30,6 @@ def main():
 
     bashrcContent = getFileContent(bashrcPath)
     colorCodeBashrcContent = getFileContent("bashrcColorCode")
-    colorCodeBashrcContent[0] = f"\n\n{colorCodeBashrcContent[0]}"
 
     colorCodeFound = False
     newBashrcContent = []
@@ -46,6 +45,10 @@ def main():
             # Remove the line from bashrcContent
             newBashrcContent.append(line)
 
+    # if the last line of bashrcContent is not a new line, add a new line
+    if newBashrcContent[-1] != "\n":
+        colorCodeBashrcContent[0] = f"\n\n{colorCodeBashrcContent[0]}"
+
     # extend the newBashrcContent with colorCodeBashrcContent
     newBashrcContent.extend(colorCodeBashrcContent)
 
@@ -59,9 +62,9 @@ def runBashrc():
     create a new bash session to run the .bashrc file
     """
     newScript = [
-        "#!/bin/bash",
-        "source ~/.bashrc",
-        "exec bash"
+        "#!/bin/bash\n\n",
+        "source ~/.bashrc\n",
+        "exec bash\n"
     ]
     writeFileContent("runBashrc.sh", newScript)
 
