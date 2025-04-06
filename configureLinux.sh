@@ -7,4 +7,6 @@ sudo apt-get install python-is-python3 -y
 
 python updateBashrc.py
 
-sources ~/.bashrc
+source ~/.bashrc
+
+cd ../ && rm -rf LinuxSetup
