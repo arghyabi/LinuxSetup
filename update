@@ -1,0 +1,25 @@
+# Define color variables
+GREEN="\033[01;92m" # Bright green
+BLUE="\033[01;94m" # Bright blue
+RED="\033[01;91m" # Bright red
+RESET="\033[00m"
+
+printf "${GREEN}\n\t... STARTING SYSTEM UPDATE ...${RESET}\n"
+printf "${BLUE}\n\tUPDATING & FIXING...${RESET}\n"
+
+sudo apt-get update -y
+sudo apt-get --fix-missing install -y
+sudo apt-get --fix-broken install -y
+
+printf "${BLUE}\n\tUPGRADING...${RESET}\n"
+sudo apt-get upgrade -y
+sudo apt-get dist-upgrade -y
+sudo apt-get --fix-missing install -y
+sudo apt-get --fix-broken install -y
+
+printf "${BLUE}\n\tCLEANING & REMOVING...${RESET}\n"
+sudo apt-get autoclean -y
+sudo apt-get autoremove -y
+
+printf "${GREEN}\n\t... SYSTEM UPDATE DONE ...${RESET}\n\n"
+

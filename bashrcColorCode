@@ -1,0 +1,31 @@
+############################################### BASH COLOR UPDATE SCRIPT ###############################################
+# Define color variables
+GREEN="\033[01;92m" # Bright green
+BLUE="\033[01;94m" # Bright blue
+RED="\033[01;91m" # Bright red
+RESET="\033[00m"
+
+# Function to parse the current Git branch and changes with separate colors
+parse_git_status() {
+    if git rev-parse --is-inside-work-tree &>/dev/null; then
+        # Get the current branch name in red (no \[\] needed here)
+        local branch="${RED}$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')${RESET}"
+
+        # Check for any changes: unstaged, staged, or untracked
+        local changes=""
+        if [[ -n $(git diff --ignore-submodules) ]] || [[ -n $(git diff --cached --ignore-submodules) ]] || [[ -n $(git ls-files --others --exclude-standard) ]]; then
+            changes="${GREEN}*${RESET}"  # Green for change indication
+        fi
+
+        # Combine branch and changes output
+        echo -e " ${branch}${changes}"
+    fi
+}
+
+# Set the PS1 prompt using global color variables
+if [ "$color_prompt" = yes ]; then
+    PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u${RED}@${GREEN}\h${RESET}:${BLUE}\w\$(parse_git_status)${RESET}$ "
+else
+    PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u${RED}@${GREEN}\h${RESET}:${BLUE}\w\$(parse_git_status)${RESET}$ "
+fi
+############################################# END BASH COLOR UPDATE SCRIPT #############################################
