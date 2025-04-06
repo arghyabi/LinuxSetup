@@ -54,5 +54,18 @@ def main():
     writeFileContent(bashrcPath, newBashrcContent)
 
 
+def runBashrc():
+    """
+    create a new bash session to run the .bashrc file
+    """
+    newScript = [
+        "#!/bin/bash",
+        "source ~/.bashrc",
+        "exec bash"
+    ]
+    writeFileContent("runBashrc.sh", newScript)
+
+
 if __name__ == "__main__":
     main()
+    runBashrc()
