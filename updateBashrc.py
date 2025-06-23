@@ -24,9 +24,11 @@ def main():
     # Define the path to the .bashrc file
     bashrcPath = os.path.join(homeDirectory, ".bashrc")
 
+    bashrcNew = False
     if not os.path.exists(bashrcPath):
-       print(f"{bashrcPath} does not exist.")
-       return
+        print(f"{bashrcPath} does not exist. Creating a default one.")
+        bashrcNew = True
+        writeFileContent(bashrcPath, ["\n\n"])
 
     bashrcContent = getFileContent(bashrcPath)
     colorCodeBashrcContent = getFileContent("bashrcColorCode")
@@ -53,7 +55,8 @@ def main():
     newBashrcContent.extend(colorCodeBashrcContent)
 
     # move the old .bashrc file to .bashrc_old
-    os.rename(bashrcPath, bashrcPath+"_old")
+    if not bashrcNew:
+        os.rename(bashrcPath, bashrcPath+"_old")
     writeFileContent(bashrcPath, newBashrcContent)
     
 
