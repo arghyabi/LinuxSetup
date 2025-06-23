@@ -1,9 +1,10 @@
 ############################################### BASH COLOR UPDATE SCRIPT ###############################################
+
 # Define color variables (with proper Bash prompt escaping)
-GREEN="\[\033[01;92m\]"  # Bright green
-BLUE="\[\033[01;94m\]"  # Bright blue
-RED="\[\033[01;91m\]"   # Bright red
-RESET="\[\033[00m\]"    # Reset
+GREEN="\[\033[01;92m\]"   # Bright green
+BLUE="\[\033[01;94m\]"    # Bright blue
+RED="\[\033[01;91m\]"     # Bright red
+RESET="\[\033[00m\]"      # Reset
 
 # Unescaped ANSI codes for inside functions
 PLAIN_GREEN="\033[01;92m"
@@ -11,7 +12,7 @@ PLAIN_BLUE="\033[01;94m"
 PLAIN_RED="\033[01;91m"
 PLAIN_RESET="\033[00m"
 
-# Function to parse the current Git branch and changes with consistent red parentheses
+# Function to parse the current Git branch and changes
 parse_git_status() {
     if git rev-parse --is-inside-work-tree &>/dev/null; then
         local branch="${PLAIN_RED}($(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null))${PLAIN_RESET}"
@@ -25,10 +26,16 @@ parse_git_status() {
     fi
 }
 
-# Set the PS1 prompt using proper syntax and escaping
-if [ "$color_prompt" = yes ]; then
-    PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u${RED}@${GREEN}\h${RESET}:${BLUE}\w\[\$(parse_git_status)\]${RESET}\$ "
-else
-    PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u${RED}@${GREEN}\h${RESET}:${BLUE}\w\[\$(parse_git_status)\]${RESET}\$ "
-fi
+# Set the PS1 prompt
+PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u${RED}@${GREEN}\h${RESET}:${BLUE}\w\[\$(parse_git_status)\]${RESET}\$ "
+
+# Enable color output for ls and friends
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Optional: use default LS_COLORS or customized one
+eval "$(dircolors -b)"
+
 ############################################# END BASH COLOR UPDATE SCRIPT #############################################
