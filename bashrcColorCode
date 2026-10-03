@@ -27,7 +27,7 @@ parse_git_status() {
 }
 
 # Set the PS1 prompt
-PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u${RED}@${GREEN}\h${RESET}:${BLUE}\w\[\$(parse_git_status)\]${RESET}\$ "
+PS1="${debian_chroot:+($debian_chroot)}${GREEN}\u${RED}@${GREEN}\h${RESET}:${BLUE}\w\[\$(parse_git_status)\]${RESET}\n\$ "
 
 # Enable color output for ls and friends
 alias ls='ls --color=auto'
